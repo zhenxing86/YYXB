@@ -1,0 +1,7 @@
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\bin\Debug\YYXB.IDal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\bin\Debug\YYXB.IDal.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\bin\Debug\YYXB.Model.dll
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\bin\Debug\YYXB.Model.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\obj\Debug\YYXB.IDal.csprojResolveAssemblyReference.cache
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\obj\Debug\YYXB.IDal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.IDal\obj\Debug\YYXB.IDal.pdb

@@ -1,0 +1,10 @@
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.Dal.dll
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.Dal.pdb
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\log4net.dll
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.IDal.dll
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.Model.dll
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.IDal.pdb
+D:\Projects\Nanfon\Nanfon.Dal\bin\Release\Nanfon.Model.pdb
+D:\Projects\Nanfon\Nanfon.Dal\obj\Release\Nanfon.Dal.csprojResolveAssemblyReference.cache
+D:\Projects\Nanfon\Nanfon.Dal\obj\Release\Nanfon.Dal.dll
+D:\Projects\Nanfon\Nanfon.Dal\obj\Release\Nanfon.Dal.pdb

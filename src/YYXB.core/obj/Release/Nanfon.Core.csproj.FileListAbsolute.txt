@@ -1,0 +1,13 @@
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.core.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.core.pdb
+D:\Projects\Nanfon\Nanfon.core\bin\Release\com.zgyey.cache.framework.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\log4net.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.Dal.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.IDal.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.Model.dll
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.Dal.pdb
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.IDal.pdb
+D:\Projects\Nanfon\Nanfon.core\bin\Release\Nanfon.Model.pdb
+D:\Projects\Nanfon\Nanfon.core\obj\Release\Nanfon.Core.csprojResolveAssemblyReference.cache
+D:\Projects\Nanfon\Nanfon.core\obj\Release\Nanfon.core.dll
+D:\Projects\Nanfon\Nanfon.core\obj\Release\Nanfon.core.pdb

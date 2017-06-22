@@ -1,0 +1,13 @@
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.core.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.core.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\com.zgyey.cache.framework.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\log4net.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.Dal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.IDal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.Model.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.Dal.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.IDal.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.core\bin\Debug\YYXB.Model.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.core\obj\Debug\YYXB.Core.csprojResolveAssemblyReference.cache
+D:\Projects\YYXBProj\YYXB\YYXB.core\obj\Debug\YYXB.core.dll
+D:\Projects\YYXBProj\YYXB\YYXB.core\obj\Debug\YYXB.core.pdb

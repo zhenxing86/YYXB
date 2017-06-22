@@ -1,0 +1,25 @@
+﻿*
+{
+    font-family: -apple-system, "Helvetica Neue", Helvetica, "Nimbus Sans L", Arial, "Liberation Sans", "PingFang SC", "Hiragino Sans GB", "Source Han Sans CN", "Source Han Sans SC", "Microsoft YaHei", "Wenquanyi Micro Hei", "WenQuanYi Zen Hei", "ST Heiti", SimHei, "WenQuanYi Zen Hei Sharp", sans-serif;
+    
+}
+nav
+{
+    font-size: 16px;
+}
+.logo
+{
+    width: 480px;
+    margin: 0 auto;
+    height: 110px;
+    /*background: url(../images/logo.jpg) no-repeat;*/
+    background-size: 480px 110px;
+}
+
+.table > tbody > tr > td, .table > tbody > tr > th, .table > tfoot > tr > td, .table > tfoot > tr > th, .table > thead > tr > td, .table > thead > tr > th
+{
+    text-align: center;
+    vertical-align: middle;
+    word-wrap:break-word;
+    word-break:break-all;
+}

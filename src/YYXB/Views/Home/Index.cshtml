@@ -1,0 +1,207 @@
+﻿@{
+    Layout = null;
+}
+@*<link href="../../Content/css/style.css" rel="stylesheet" type="text/css" />*@
+<script src="../../Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.form.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function change() {
+        $("#txt").val($("#sl option:selected").attr("title"));
+        $("#token").val($("#sl option:selected").val());
+    }
+
+    function find() {
+        var url = "/" + $("#sl").val() + "?token=" + $("#token").val() + "&" + $("#txt").val();
+        window.open(url);
+       
+    }
+
+</script>
+
+<div style="width:960px">
+测试接口：
+<select id="sl" onchange="javascript:change()">
+
+
+<option value='' title=''>-------------------消息中心------------------------------</option>
+<option value='main/updateClientID' title='userid=2&device_id=123456789&app=1&appver=1.085&client=2'>更新设备号(ok)</option>
+<option value='main/GetMsgs' title='userid=2&app=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取消息列表（用户端/护工端）</option>
+<option value='main/SendMsg' title='userid=2&touid=1&title=测试&content=测试内容&appver=1.085&client=2'>发送消息（用户端/护工端）</option>
+<option value='' title=''>-------------------首页------------------------------</option>
+<option value='main/Register' title='account=13432432083&password=123456&code=11111&realpassword=123456&appver=1.085&client=2'>注册（用户端）</option>
+<option value='main/uLogin' title='account=13432432083&password=123456&device_id=123456789&appver=1.085&client=2'>登陆（用户端）</option>
+<option value='main/Logout' title='userid=1&device_id=123456789&app_type=1&appver=1.085&client=2'>注销（用户端）</option>
+<option value='main/SendPhoneCode' title='phone=10086&appver=1.085&client=2'>发送验证码</option>
+
+
+<option value='main/UpdateLocation' title='userid=1&lng=112.3&lat=123.3&appver=1.085&client=2'>更新用户位置</option>
+
+<option value='main/uGetCitys' title='appver=1.085&client=2'>获取城市列表（用户端）</option>
+<option value='main/uGetCity' title='province=广东&city=广州&district=天河&appver=1.085&client=2'>获取城市id（用户端）</option>
+<option value='main/uGetHospitals' title='hospital_name=&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2'>获取医院列表（用户端）</option>
+<option value='main/uFindHospitals' title='hospital_name=&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2'>模糊查找医院（用户端）</option>
+<option value='main/uGetHospNursingCategory' title='hospitalid=2&appver=1.085&client=2'>获取医院护理类型（用户端）</option>
+<option value='main/uGetHospNurses' title='hospitalid=2&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2'>获取医院护士、护工列表（用户端）</option>
+<option value='main/uGetHouseNurses' title='job=1&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2'>获取家庭陪护护士、护工、陪诊列表（用户端）</option>
+<option value='main/uGetNurseDetail' title='userid=1&job=0&appver=1.085&client=2'>获取护士、护工详情（用户端）</option>
+<option value='main/uGetNurseComments' title='userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取护士、护工的评价信息（用户端）</option>    
+<option value='main/uGetPatients' title='userid=1&appver=1.085&client=2'>获取病人列表（用户端）</option>
+<option value='main/uAddPatient' title='userid=1&realname=张三&avatar=http://photocdn.sohu.com/20140805/Img403121744.jpg&birthdate=2013-10-01&idcard=431351&gender=1&tel=10086&is_default=0&appver=1.085&client=2'>新增病人（用户端）</option>
+<option value='main/uEditPatient' title='p_userid=1&userid=1&realname=张三&avatar=http://photocdn.sohu.com/20140805/Img403121744.jpg&birthdate=2013-10-01&idcard=431351&gender=1&tel=10086&is_default=0&appver=1.085&client=2'>编辑病人（用户端）</option>
+<option value='main/uDeletePatient' title='p_userid=1&userid=1&appver=1.085&client=2'>删除病人（用户端）</option>
+    
+<option value='main/uGetHospHardwares' title='hospitalid=1&appver=1.085&client=2'>获取医院智能硬件（用户端）</option>
+<option value='main/uGetHouseServices' title='userid=1&n_type=4&appver=1.085&client=2'>获取家庭陪护的护理项目（用户端）</option>
+<option value='main/uAddOrder' title='userid=1&p_userid=1&begin_time=2016-12-16 10:00:00&end_time=2016-12-19 10:00:00&o_type=1&n_type=3&acceptor=2&hospitalid=1&hospital_name=&area=12&addr=广州天河体育中心&pickup=0&pickup_cost=0&nursing_unit_price=100&nursing_cnt=3&hardware_cost=0&cost=300&services=1|10|3,2|20|3,3|30|3&remark1=无1&audio_url1=&remark2=无2&audio_url2=&appver=1.085&client=2'>创建订单（用户端）</option>
+
+
+<option value='' title=''>-------------------我的订单------------------------------</option>
+<option value='main/uGetOrders' title='userid=1&o_type=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用户订单信息（用户端）</option>
+<option value='main/uCancleOrder' title='userid=1&orderid=1&appver=1.085&client=2'>取消订单（用户端）</option>
+<option value='main/uApplyRefund' title='userid=1&orderid=1&refund_reason=单下错了&refund_cost=0&appver=1.085&client=2'>申请退款（用户端）</option>
+<option value='main/uCommentOrder' title='userid=1&touid=2&orderid=1&star=5&content=护士同志的服务很好&appver=1.085&client=2'>评价护工/护士（用户端）</option>
+<option value='main/GetRefundDetail' title='userid=1&orderid=7&appver=1.085&client=2'>获取退款详情（用户端/护工端）</option>
+<option value='' title=''>-------------------订单支付(支付宝)------------------------------</option>
+<option value='main/AliPay' title='orderid=1&appver=1.085&client=2'>获取支付宝订单信息（用户端）</option>
+<option value='main/AliQuery' title='out_trade_no=N201701100025124039771&trade_no=&appver=1.085&client=2'>订单查询（用户端）</option>
+<option value='main/AliRefund' title='out_trade_no=N201701100025124039771&trade_no=&out_request_no=&refund_amount=0.01&appver=1.085&client=2'>退款（用户端）</option>
+<option value='' title=''>-------------------订单支付(微信)------------------------------</option>
+<option value='main/WxPay' title='orderid=1&appver=1.085&client=2'>获取微信订单信息（用户端）</option>
+<option value='main/WxQuery' title='out_trade_no=N201701100025124039771&trade_no=&appver=1.085&client=2'>订单查询（用户端）</option>
+<option value='main/WxRefund' title='out_trade_no=N201701100025124039771&trade_no=&out_request_no=&total_fee=0.01&refund_amount=0.01&appver=1.085&client=2'>退款（用户端）</option>
+ 
+           
+<option value='' title=''>-------------------健康档案------------------------------</option>
+<option value='main/uGetDiagnosis' title='p_userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取诊断记录（用户端）</option>
+<option value='main/uGetScadas' title='p_userid=1&scada_type=1&bgntime=2016-10-18 10:00&endtime=2016-12-19 10:00&fetchnum=10&nextid=0&appver=1.085&client=2'>获取病患记录（用户端）</option>
+<option value='main/uGetMedicines' title='p_userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用药记录（用户端）</option>
+
+<option value='' title=''>-------------------用户信息------------------------------</option>
+<option value='main/updateNickname' title='userid=1&nickname=张三丰&appver=1.085&client=2'>修改昵称（用户端/护工端）</option>
+<option value='main/updatePassword' title='userid=1&phone=10086&code=11111&password=123456&appver=1.085&client=2'>修改密码（用户端/护工端）</option>
+<option value='main/updatePasswordV2' title='account=13432432083&phone=10086&code=11111&password=123456&appver=1.085&client=2'>忘记密码，修改密码V2（用户端/护工端）</option>
+<option value='main/updateAvatar' title='userid=1&avatar=http://photocdn.sohu.com/20140805/Img403121744.jpg&appver=1.085&client=2'>修改护工、护士头像（用户端/护工端）</option>
+    
+<option value='' title=''>-------------------我的关注------------------------------</option>
+<option value='main/uGetAttentionUsers' title='userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>关注的用户列表（用户端）</option>
+<option value='main/uAddAttentionUser' title='userid=1&touid=2&appver=1.085&client=2'>关注用户（用户端）</option>
+<option value='main/uAddAttentionTopic' title='userid=1&topic_id=1&appver=1.085&client=2'>关注话题（用户端）</option>
+    
+<option value='main/uRemoveAttentionUser' title='userid=1&touid=2&appver=1.085&client=2'>取消关注用户（用户端）</option>
+<option value='main/uRemoveAttentionTopic' title='userid=1&topic_id=1&appver=1.085&client=2'>取消关注话题（用户端）</option>
+<option value='main/uGetAttentionTopics' title='userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取关注的主题列表（用户端）</option>
+<option value='main/uGetUserTopics' title='userid=2&touid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用户所有的主题信息——个人名片（用户端）</option>
+<option value='main/GetTopic' title='userid=1&topic_id=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取主题详情（用户端）</option>
+
+<option value='' title=''>-------------------健康社区------------------------------</option>
+<option value='main/uGetCommunitySections' title='appver=1.085&client=2'>获取健康社区话题分类（用户端）</option>
+<option value='main/uGetCommunityTopics' title='userid=1&section_id=-1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取社区所有的主题信息（用户端）</option>
+<option value='main/AddCommunityTopic' title='userid=1&section_id=1&title=头疼良药&content=多吃水果和青菜&source_urls=http://pic104.nipic.com/file/20160716/11673915_132558632764_2.jpg,http://pic47.nipic.com/20140905/9885883_112908340001_2.jpg&appver=1.085&client=2'>发布社区文章（用户端）</option>
+<option value='main/uAddTopicComment' title='topic_id=1&userid=1&&touid=2&content=不错的建议&appver=1.085&client=2'>评论话题（用户端）</option>
+<option value='main/uAddTopicLike' title='topic_id=1&userid=1&appver=1.085&client=2'>新增/删除话题点赞（用户端）</option>
+
+<option value='' title=''>-------------------资讯------------------------------</option>
+<option value='main/uGetTop5Infos' title='userid=1&appver=1.085&client=2'>获取最新5条资讯（用户端）</option>
+<option value='main/uGetHotInfo' title='userid=1&info_type=0&appver=1.085&client=2'>获取热门资讯（用户端）</option>
+<option value='main/uGetInfos' title='userid=1&hot_info_id=2&info_type=0&fetchnum=10&nextid=0&appver=1.085&client=2'>获取资讯列表（用户端）</option>
+<option value='main/uGetInfo' title='userid=1&info_id=2&&fetchnum=10&nextid=0&appver=1.085&client=2'>获取资讯详情（用户端）</option>
+<option value='main/uAddInfoComment' title='info_id=2&userid=1&&touid=2&content=不错的建议&appver=1.085&client=2'>新增资讯评论（用户端）</option>
+<option value='main/uAddInfoLike' title='info_id=2&userid=1&appver=1.085&client=2'>新增/删除资讯点赞（用户端）</option>
+
+<option value='' title=''>-------------------招聘信息------------------------------</option>
+<option value='main/ApplyNurse' title='userid=1&realname=张三&avatar=http://photocdn.sohu.com/20140805/Img403121744.jpg&idcard=441233&birthdate=1985-10-01&gender=1&idcard_1=http://www.cq.xinhuanet.com/news/2010-05/07/xin_123050707131092130461.jpg&idcard_2=http://www.chinanews.com/2015/0311/20153119356.png&certificate_1=http://static12.photo.sina.com.cn/middle/006kQO2ngy74Pg8pPWb5b&690&certificate_2=http://newpic.jxnews.com.cn/003/000/339/00300033920_6ba3b90b.jpg&job=1&appver=1.085&client=2'>申请陪诊、护工、护士（用户端/护工端）</option>
+<option value='main/GetUserApply' title='userid=1&job=1&appver=1.085&client=2'>获取用户申请信息（用户端/护工端）</option>
+
+
+<option value='' title=''>-------------------护工端------------------------------</option>
+<option value='main/nLogin' title='account=13432432083&password=123456&device_id=123456789&appver=1.085&client=2'>登陆（护工端）</option>
+
+<option value='' title=''>-------------------病患监护（护工端）------------------------------</option>
+<option value='main/nGetPatientMonitorings' title='userid=2&fetchnum=10&nextid=0&appver=1.085&client=2'>获取病患监护列表（护工端）</option>
+<option value='main/nGetPatientDetail' title='orderid=1&appver=1.085&client=2'>获取病患详情（护工端）</option>
+<option value='main/nUpdateHospitalized' title='orderid=1&room_num=住院部18楼3房&bed_num=2号&in_time=2016-10-10 10:00:00&appver=1.085&client=2'>更新住院信息（护工端）</option>
+<option value='main/nGetDiagnosis' title='userid=2&p_userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取诊断记录（护工端）</option>
+<option value='main/nDeleteDiagnosis' title='diagnosis_id=1&appver=1.085&client=2'>删除诊断记录（护工端）</option>
+<option value='main/nAddDiagnosis' title='orderid=1&postion=天河医院&in_time=2016-10-10 10:00:00&out_time2016-10-11 10:00:00&descr=患者出现胸闷、气喘，伴咳嗽&appver=1.085&client=2'>新增诊断记录（护工端）</option>
+<option value='main/nGetScadas' title='userid=2&p_userid=1&scada_type=1&bgntime=2016-10-18 10:00&endtime=2016-12-19 10:00&fetchnum=10&nextid=0&appver=1.085&client=2'>获取病患记录（护工端）</option>
+<option value='main/nAddScada' title='orderid=1&scada_type=1@deviceid=123456789&record_time=2016-12-18 10:00&value1=2.3&value2=0&appver=1.085&client=2'>新增病患记录（护工端）</option>
+<option value='main/nGetMedicines' title='userid=2&p_userid=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用药记录（护工端）</option>
+<option value='main/nAddMedicine' title='orderid=1&take_time=2016-10-10 10:00:00&medicine_name=感康&dosage=一日一片&appver=1.085&client=2'>新增用药记录（护工端）</option>
+<option value='main/nDeleteMedicine' title='omid=1&appver=1.085&client=2'>删除用药记录（护工端）</option>
+<option value='main/nGetHospitalDevices' title='orderid=1&hospital_id=1&appver=1.085&client=2'>获取智能硬件（护工端）</option>
+
+
+
+<option value='' title=''>-------------------订单中心（护工端）------------------------------</option>
+<option value='main/nGetOrders' title='userid=2&o_type=1&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用户订单信息（护工端）</option>
+<option value='main/nUpdateOrderState' title='userid=2&orderid=1&state=1&appver=1.085&client=2'>修改订单状态（护工端）</option>
+<option value='main/nRefuseOrder' title='userid=2&orderid=1&appver=1.085&client=2'>拒绝接单（护工端）</option>
+    
+<option value='main/GetOrderComment' title='orderid=1&appver=1.085&client=2'>获取某个订单，护工/护士的评论信息 （用户端/护工端）</option>
+
+
+<option value='' title=''>-------------------个人中心（护工端）------------------------------</option>
+<option value='main/Feedback' title='userid=2&content=登陆不了&app=2&appver=1.085&client=2'>新增反馈记录（用户端/护工端）</option>
+<option value='main/SetServicePrice' title='userid=2&services=201|22,202|33,203|44,204|55&appver=1.085&client=2'>设置服务价格（护工端）</option>
+<option value='main/GetServicePrice' title='userid=2&appver=1.085&client=2'>获取服务价格（护工端）</option>
+    
+<option value='main/nGetHospitals' title='hospital_name=&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2'>获取医院列表（护工端）</option>
+<option value='main/nGetUserInfo' title='userid=2&appver=1.085&client=2'>获取个人资料（护工端）</option>
+<option value='main/nUpdateUserIntroduce' title='userid=2&bio=我是一个兵appver=1.085&client=2'>修改个人简介（护工端）</option>
+<option value='main/nUpdateUserHospital' title='userid=2&hospitalid=1&appver=1.085&client=2'>修改所在医院（护工端）</option>
+    
+<option value='main/nGetOrderComments' title='userid=2&fetchnum=10&nextid=0&appver=1.085&client=2'>获取个人评价 （护工端）</option>
+<option value='main/nUpdateUserCity' title='userid=2&cityid=1&appver=1.085&client=2'>修改所在城市（护工端）</option>
+<option value='main/nGetCitys' title='appver=1.085&client=2'>获取城市列表（护工端）</option>
+
+<option value='main/nGetIncomes' title='userid=2&bgndate=2017-04&enddate=2017-05&fetchnum=10&nextid=0&appver=1.085&client=2'>获取用户收入 （护工端）</option>
+
+
+</select>
+
+<input id="txt" name="txt" style=" width:600px" />
+<br />
+方法：<input id="token" name="token" style=" width:300px"  />
+<input id="Button1" onclick="javascript: find();" type="button" value="执行" />
+<br /><br /><br />
+
+
+
+<script type="text/javascript">
+    function BtnSave() {
+        var msg = "";
+        $("#imgurls").html("");
+        var url = "/utils/UploadFile"
+        $("#form1").ajaxSubmit({
+            type: "POST",
+            url: url,
+            success: function (data) {
+                if (data == "0") {
+                    alert("错误，请检查图片格式，图片格式只能是jpg,gif,png");
+                }
+                else {
+                    $("#imgurls").html(data);
+                    alert("保存成功");
+                }
+            }
+        });
+    }
+
+    function clearurls() {
+        $("#imgurls").html("");
+    }
+
+</script>
+
+
+<form id="form1" runat="server" enctype="multipart/form-data">
+    <div id="imgurls"></div>
+    <table border="0" cellpadding="0" cellspacing="0">
+   
+    <tr><td>上传图片</td><td><input id="File1" name="File1" type="file" accept="image/*" onchange="javascript:clearurls();" /></td></tr>
+    <tr><td></td><td><input id="b1" type="button" value="保存" onclick="BtnSave()" /></td></tr></table>
+</form>
+
+
+</div>

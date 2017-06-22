@@ -1,0 +1,10 @@
+﻿<div class="header-wrap">
+    <div class="header" style="width:70%;float:left;font-size:60px;padding-left:60px;padding-top:20px;"> 运营管理后台
+    </div>
+    <div class="header" style="width:10%;float:left;">
+        @if ((Request.RawUrl.IndexOf("Login") < 0 && Request.RawUrl.Length > 1) && Request.RawUrl != "/")
+        {
+            <a class="exit" href="/">退出</a>
+        }
+    </div>
+</div>

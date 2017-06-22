@@ -1,0 +1,23 @@
+﻿@if (Request.RawUrl.IndexOf("Login") < 0 && Request.RawUrl.Length > 1)
+{
+    <script>
+        $(function () {
+            $('#nav_@(Request["nav"]??"1")' ).attr('class', 'on');
+    })
+    </script>
+    
+    <div id="nav" class="nav">
+        <a class="" id="nav_1" href="/PostTheme/Index?nav=1">主题广场</a>
+        <a class="" id="nav_2" href="/Post/Index?nav=2">广场帖子</a>
+        <a class="" id="nav_6" href="/Comment/PostComments?nav=6">评论管理</a>
+        <a class="" id="nav_3" href="/ReadGuide/Index?nav=3">阅读指引</a>
+        <a class="" id="nav_4" href="/BookLists/Index?nav=4">书单理由</a>
+        <a class="" id="nav_5" href="/BookTag/Index?nav=5">图书标签</a>
+        <a class="" id="nav_7" href="/Barcode/Index?nav=7">打印条码管理</a>
+        <a class="" id="nav_8" href="/Reward/Posts?nav=8">抢红包管理</a>
+        <a class="" id="nav_9" href="/Withdraw/Index?nav=9">提现管理</a>
+        <a class="" id="nav_10" href="/BookInfo/Index?nav=10">图书库存管理</a>
+        <a class="" id="nav_11" href="/BookStore/Index?nav=11">幼儿园入库管理</a>
+        <a class="" id="nav_12" href="/BookRelation/Index?nav=12">图书关系管理</a>
+    </div>
+}

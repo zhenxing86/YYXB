@@ -1,0 +1,4 @@
+D:\Projects\YYXBProj\YYXB\YYXB.Model\bin\Release\YYXB.Model.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Model\bin\Release\YYXB.Model.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.Model\obj\Release\YYXB.Model.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Model\obj\Release\YYXB.Model.pdb

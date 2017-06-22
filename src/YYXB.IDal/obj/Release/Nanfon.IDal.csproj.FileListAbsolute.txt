@@ -1,0 +1,7 @@
+D:\Projects\Nanfon\Nanfon.IDal\bin\Release\Nanfon.IDal.dll
+D:\Projects\Nanfon\Nanfon.IDal\bin\Release\Nanfon.IDal.pdb
+D:\Projects\Nanfon\Nanfon.IDal\bin\Release\Nanfon.Model.dll
+D:\Projects\Nanfon\Nanfon.IDal\bin\Release\Nanfon.Model.pdb
+D:\Projects\Nanfon\Nanfon.IDal\obj\Release\Nanfon.IDal.csprojResolveAssemblyReference.cache
+D:\Projects\Nanfon\Nanfon.IDal\obj\Release\Nanfon.IDal.dll
+D:\Projects\Nanfon\Nanfon.IDal\obj\Release\Nanfon.IDal.pdb

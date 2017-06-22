@@ -1,0 +1,9 @@
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\bin\Debug\Com.Alipay.dll
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\bin\Debug\Com.Alipay.pdb
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\bin\Debug\com.zgyey.sgspay.common.dll
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\bin\Debug\com.zgyey.sgspay.common.pdb
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\obj\Debug\Com.Alipay.csprojResolveAssemblyReference.cache
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\obj\Debug\Com.Alipay.dll
+D:\svnproject\sgspay.zgyey.com\trunk\Com.Alipay\obj\Debug\Com.Alipay.pdb
+D:\Projects\YYXBProj\YYXB\Com.Alipay\obj\Debug\Com.Alipay.csprojResolveAssemblyReference.cache
+D:\Projects\YYXBProj\YYXB\Com.Alipay\obj\Debug\Com.Alipay.dll

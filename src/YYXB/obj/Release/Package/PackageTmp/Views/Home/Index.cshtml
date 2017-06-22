@@ -1,0 +1,91 @@
+﻿@{
+    Layout = null;
+}
+@*<link href="../../Content/css/style.css" rel="stylesheet" type="text/css" />*@
+<script src="../../Scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+<script src="../../Scripts/jquery.form.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+    function change() {
+        $("#txt").val($("#sl option:selected").attr("title"));
+        $("#token").val($("#sl option:selected").val());
+    }
+
+    function find() {
+        var url = "/" + $("#sl").val() + "?token=" + $("#token").val() + "&" + $("#txt").val();
+        window.open(url);
+       
+    }
+
+</script>
+
+<div style="width:960px">
+测试接口：
+<select id="sl" onchange="javascript:change()">
+
+<option value='' title=''>-------------------用户信息------------------------------</option>
+    
+<option value='main/Register' title='account=13432432083&password=123456&code=11111&realpassword=123456&appver=1.085&client=2&key=123456789abc'>注册（用户端）</option>
+<option value='main/uLogin' title='account=13432432083&password=123456&device_id=123456789&appver=1.085&client=2&key=123456789abc'>登陆（用户端）</option>
+<option value='main/uGetCitys' title='appver=1.085&client=2&key=123456789ab'>获取城市列表（用户端）</option>
+<option value='main/uGetHospitals' title='hospital_name=&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2&key=123456789ab'>获取医院列表（用户端）</option>
+    
+<option value='main/uGetHospNursingCategory' title='hospitalid=2&appver=1.085&client=2&key=123456789ab'>获取医院护理类型（用户端）</option>
+<option value='main/uGetHospNurses' title='hospitalid=2&city_id=3&fetchnum=10&nextid=0&appver=1.085&client=2&key=123456789ab'>获取医院护士、护工列表（用户端）</option>
+<option value='main/uGetNurseDetail' title='userid=1&job=0&appver=1.085&client=2&key=123456789abc'>获取护士、护工详情（用户端）</option>
+<option value='main/uGetNurseComments' title='userid=1&fetchnum=10&nextid=0&appver=1.085&client=2&key=123456789ab'>获取护士、护工的评价信息（用户端）</option>    
+<option value='main/uGetPatients' title='userid=1&appver=1.085&client=2&key=123456789abc'>获取病人列表（用户端）</option>
+<option value='main/uAddPatient' title='userid=1&name=张三&avatar=http://photocdn.sohu.com/20140805/Img403121744.jpg&birthdate=2013-10-01&idcard=431351&gender=1&tel=10086&is_default=0&appver=1.085&client=2&key=123456789abc'>新增病人（用户端）</option>
+
+<option value='main/uGetHospHardwares' title='userid=1&appver=1.085&client=2&key=123456789abc'>获取病人列表（用户端）</option>
+<option value='main/uAddOrder' title='userid=1&p_userid=1&begin_time=2016-12-16 10:00:00&end_time=2016-12-19 10:00:00&o_type=1&n_type=3&acceptor=2&hospitalid=1&hospital_name=&area=12&addr=广州天河体育中心&pickup=0&pickup_cost=0&nursing_unit_price=100&nursing_cnt=3&cost=300&services=1|10|3,2|20|3,3|30|3&remark1=无1&audio_url1=&remark2=无2&audio_url2=&appver=1.085&client=2&key=123456789abc'>创建订单（用户端）</option>
+
+<option value='' title=''>-------------------主网关main------------------------------</option>
+<option value='main/GetUsers' title='categoryid=1&fetchnum=10&nextid=0&key=123456789abc'>根据分类categoryid获取信息（分页）</option>
+
+
+</select>
+
+<input id="txt" name="txt" style=" width:600px" />
+<br />
+方法：<input id="token" name="token" style=" width:300px"  />
+<input id="Button1" onclick="javascript: find();" type="button" value="执行" />
+<br /><br /><br />
+
+
+@*<input id="txtjson" name="txtjson" style=" width:600px" />
+<br />
+<input id="Button2" onclick="javascrip:exec();" type="button" value="解析JSON数据" />
+
+</div>
+
+<script>
+    var isSaving = false;
+    function exec() {
+        var txtjson = $("#txtjson").val();
+            if (isSaving) {
+                return;
+            }
+            isSaving = true;
+            $.ajax({
+                url: "/Home/execjson",
+                data: {
+                    txtjson: txtjson
+                },
+                type: "POST",
+                async: false,
+                success: function (result) {
+                    if (result > 0) {
+                        alert("新增成功！");
+                    } else {
+                        alert("新增失败！");
+                    }
+                }
+                ,
+                complete: function () {
+                    isSaving = false;
+                }
+            })
+        }
+
+</script>*@

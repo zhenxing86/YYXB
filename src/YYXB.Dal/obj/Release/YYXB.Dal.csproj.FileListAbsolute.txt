@@ -1,0 +1,10 @@
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.Dal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.Dal.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\log4net.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.IDal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.Model.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.IDal.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\bin\Release\YYXB.Model.pdb
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\obj\Release\YYXB.Dal.csprojResolveAssemblyReference.cache
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\obj\Release\YYXB.Dal.dll
+D:\Projects\YYXBProj\YYXB\YYXB.Dal\obj\Release\YYXB.Dal.pdb

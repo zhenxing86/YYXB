@@ -1,0 +1,5 @@
+D:\Projects\Nanfon\Nanfon.Model\bin\Debug\Nanfon.Model.dll
+D:\Projects\Nanfon\Nanfon.Model\bin\Debug\Nanfon.Model.pdb
+D:\Projects\Nanfon\Nanfon.Model\obj\Debug\Nanfon.Model.dll
+D:\Projects\Nanfon\Nanfon.Model\obj\Debug\Nanfon.Model.pdb
+D:\Projects\Nanfon\Nanfon.Model\obj\Debug\Nanfon.Model.csprojResolveAssemblyReference.cache
