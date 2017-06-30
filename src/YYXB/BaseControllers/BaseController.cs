@@ -44,7 +44,7 @@ namespace YYXB.BaseControllers
                     serverTime = DateTime.Parse("2900-01-01");
                 }
 
-                if (serverTime > DateTime.Parse("2017-08-01"))
+                if (serverTime > DateTime.Parse("2017-09-01"))
                 {
                     Response.Redirect("/Home/Index/", true);
                     return;

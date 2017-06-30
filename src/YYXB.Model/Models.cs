@@ -77,4 +77,21 @@ namespace YYXB.Model
 
         public float cost { get; set; }
     }
+
+    public class VideoOrderInfo
+    {
+        public long v_orderid { get; set; }
+
+        public string v_orderno { get; set; }
+
+        public string orderno { get; set; }
+
+        public int time_len { get; set; }
+
+        public float cost { get; set; }
+
+        public long userid { get; set; }
+
+        public int state { get; set; }
+    }
 }

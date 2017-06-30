@@ -1035,6 +1035,32 @@ namespace YYXB.Controllers
             return this.Json(bmrow, JsonRequestBehavior.AllowGet);
         }
 
+        //新增摄像头订单
+        public JsonResult uAddVideoOrder()
+        {
+            string v_orderno = GenerateOutTradeNo();
+            IList<TextAndValue> tv = new List<TextAndValue>();
+            tv.Add(new TextAndValue("userid", GetValue("userid")));//用户端登陆人userid
+            tv.Add(new TextAndValue("videoid", GetValue("videoid")));//摄像头ID
+            tv.Add(new TextAndValue("orderno", GetValue("orderno")));//订单号
+            tv.Add(new TextAndValue("v_orderno", v_orderno));//摄像头订单号
+            tv.Add(new TextAndValue("time_len", GetValue("time_len")));//时长
+            tv.Add(new TextAndValue("cost", GetValue("cost")));//总金额
+            tv.Add(new TextAndValue("client", GetValue("client")));//1：安卓，2：ios  
+
+            DataSet ds = KinProxyData.GetDataSet(tv, dbname + ".dbo.appu_add_video_order");
+            if (ds == null || ds.Tables.Count <= 0)
+            {
+                return this.Json(new BaseModel<object>(1, "请求失败", new object()), JsonRequestBehavior.AllowGet);
+            }
+            else if (ds.Tables.Count > 0)
+            {
+                return this.Json(new { code = ds.Tables[0].Rows[0][0], info = ds.Tables[0].Rows[0][1], v_orderid = ds.Tables[0].Rows[0][2] }, JsonRequestBehavior.AllowGet);
+            }
+
+            return this.Json(new BaseModel<object>(1, "请求失败", new object()), JsonRequestBehavior.AllowGet);
+        }
+
         #endregion
 
         #region 我的订单
@@ -2518,7 +2544,10 @@ namespace YYXB.Controllers
                         gender = s.Field<int>("gender"),       //性别
                         avatar = s.Field<string>("avatar"),    //头像
                         birthdate = s.Field<DateTime>("birthdate").ToString("yyyy-MM-dd HH:mm:ss"),  //出生日期
-                        age = s.Field<int>("age")              //年龄
+                        age = s.Field<int>("age"),             //年龄
+                        tel = s.Field<string>("tel"),
+                        area = s.Field<int>("area"),
+                        area_name = s.Field<int>("area_name")
                     }).FirstOrDefault(),
                     //4、患者信息
                     patient = ds.Tables[4].AsEnumerable().Where(w => w.Field<long>("orderid") == x.Field<long>("orderid")).Select(s => new
@@ -3093,12 +3122,17 @@ namespace YYXB.Controllers
             }
         }
 
-        public AlipayTradeAppPayResponse AliOrder(string title, string content, double amount, string out_trade_no)
+        public AlipayTradeAppPayResponse AliOrder(string title, string content, double amount, string out_trade_no,bool payVideo=false)
         {
+            string notify = AlipayConfig.ALIPAY_Notify_Url;
+            if (payVideo)
+            {
+                notify += "_Video";
+            }
             IAopClient client = new DefaultAopClient(AlipayConfig.GATEWAY, AlipayConfig.APP_ID, AlipayConfig.APP_PRIVATE_KEY, "json", "1.0", AlipayConfig.SIGN_TYPE, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.Input_charset, false);
             //实例化具体API对应的request类,类名称和接口名称对应,当前调用接口名称如：alipay.trade.app.pay
             AlipayTradeAppPayRequest request = new AlipayTradeAppPayRequest();
-            request.SetNotifyUrl(AlipayConfig.ALIPAY_Notify_Url);
+            request.SetNotifyUrl(notify);
             //SDK已经封装掉了公共参数，这里只需要传入业务参数。以下方法为sdk的model入参方式(model和biz_content同时存在的情况下取biz_content)。
             AlipayTradeAppPayModel model = new AlipayTradeAppPayModel();
             model.Body = content;                    // "我是测试数据";
@@ -3337,6 +3371,170 @@ namespace YYXB.Controllers
             return sArray;
         }
 
+
+        public JsonResult AliPay_Video()
+        {
+            string title = "视频监控";
+            string content = "视频监控";
+            string v_orderid = GetValue("v_orderid", "");
+            VideoOrderInfo or = GetOrderInfo_Video(v_orderid);
+            if (or != null)
+            {
+                AlipayTradeAppPayResponse response = AliOrder(title, content, or.cost, or.v_orderno);
+                if (!response.IsError)
+                {
+                    //修改支付方式
+                    IList<TextAndValue> tv = new List<TextAndValue>();
+                    tv.Add(new TextAndValue("@v_orderid", v_orderid));
+                    tv.Add(new TextAndValue("@paytype", "2"));  //1：微信，2：支付宝 
+                    KinProxyData.Execute(tv, dbname + ".dbo.app_updatepaytype_video");
+                    return this.Json(new
+                    {
+                        code = 0,
+                        info = "",
+                        result = new
+                        {
+                            trade_no = response.TradeNo ?? "",
+                            out_trade_no = response.OutTradeNo ?? "",
+                            body = response.Body ?? ""
+                        }
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return this.Json(new
+                    {
+                        code = -1,
+                        info = response.SubMsg ?? "",
+                        result = new { }
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return this.Json(new
+                {
+                    code = -1,
+                    info = "获取订单失败",
+                    result = new { }
+                });
+            }
+        }
+
+
+        private VideoOrderInfo GetOrderInfo_Video(string v_orderid)
+        {
+            VideoOrderInfo order = null;
+            IList<TextAndValue> tv = new List<TextAndValue>();
+            tv.Add(new TextAndValue("@v_orderid", v_orderid));
+            DataSet ds = KinProxyData.GetDataSet(tv, dbname + ".dbo.app_getorderinfo_Video");
+            if (ds != null && ds.Tables.Count > 0)
+            {
+                order = ds.Tables[0].AsEnumerable().Select(x => new VideoOrderInfo
+                {
+                    v_orderid = x.Field<long>("v_orderid"),
+                    v_orderno = x.Field<string>("v_orderno"),
+                    orderno = x.Field<string>("orderno"),
+                    time_len = x.Field<int>("time_len"),
+                    cost = ParseValueFloat(x["cost"].ToString()),
+                    userid = x.Field<long>("userid"),
+                    state = x.Field<int>("state")
+                }).FirstOrDefault();
+            }
+
+            return order;
+        }
+
+        /// <summary>
+        /// 异步通知
+        /// </summary>
+        /// <returns></returns>
+        public ActionResult AliNotify_Video()
+        {
+            /*1、商户需要验证该通知数据中的out_trade_no是否为商户系统中创建的订单号，
+             * 2、判断total_amount是否确实为该订单的实际金额（即商户订单创建时的金额），
+             * 3、校验通知中的seller_id（或者seller_email) 是否为out_trade_no这笔单据的对应的操作方（有的时候，一个商户可能有多个seller_id/seller_email），
+             * 4、验证app_id是否为该商户本身。
+             * 上述1、2、3、4有任何一个验证不通过，则表明本次通知是异常通知，务必忽略。在上述验证通过后商户必须根据支付宝不同类型的业务通知，正确的进行不同的业务处理，
+             * 并且过滤重复的通知结果数据。在支付宝的业务通知中，只有交易通知状态为TRADE_SUCCESS或TRADE_FINISHED时，支付宝才会认定为买家付款成功。
+             */
+
+            //切记alipaypublickey是支付宝的公钥，请去open.alipay.com对应应用下查看。
+            //bool RSACheckV1(IDictionary<string, string> parameters, string alipaypublicKey, string charset, string signType, bool keyFromFile)
+
+            Dictionary<string, string> dict = GetRequestPost();
+            bool flag = AlipaySignature.RSACheckV1(dict, AlipayConfig.ALIPAY_PUBLIC_KEY, AlipayConfig.Input_charset, AlipayConfig.SIGN_TYPE, false);
+            if (flag)
+            {
+                string out_trade_no = dict["out_trade_no"];
+                string trade_no = dict["trade_no"];
+                string trade_status = dict["trade_status"].ToUpper();
+                // TODO 验签成功后
+                //按照支付结果异步通知中的描述，对支付结果中的业务内容进行1\2\3\4二次校验，校验成功后在response中返回success，校验失败返回failure
+                //IList<TextAndValue> tv = new List<TextAndValue>();
+                //tv.Add(new TextAndValue("@orderid", GetValue("orderid")));
+                //DataSet ds = KinProxyData.GetDataSet(tv, dbname + ".dbo.app_get_refund_detail");
+                //if (ds == null || ds.Tables.Count <= 0)
+                //{
+                //    return this.Json(new BaseModel<object>(1, "获取失败", new object()), JsonRequestBehavior.AllowGet);
+                //}
+                //else
+                {
+                    if (trade_status == "TRADE_FINISHED")
+                    {
+                        //判断该笔订单是否在商户网站中已经做过处理
+                        //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                        //如果有做过处理，不执行商户的业务程序
+
+                        //注意：
+                        //该种交易状态只在两种情况下出现
+                        //1、开通了普通即时到账，买家付款成功后。
+                        //2、开通了高级即时到账，从该笔交易成功时间算起，过了签约时的可退款时限（如：三个月以内可退款、一年以内可退款等）后。
+                        log4net.LogManager.GetLogger("AliNotify_Video").Info("Alipay notify_url out_trade_no:" + out_trade_no);
+
+                        PaySuccess_Video(out_trade_no, trade_no);
+
+                    }
+                    else if (trade_status == "TRADE_SUCCESS")
+                    {
+                        //判断该笔订单是否在商户网站中已经做过处理
+                        //如果没有做过处理，根据订单号（out_trade_no）在商户网站的订单系统中查到该笔订单的详细，并执行商户的业务程序
+                        //如果有做过处理，不执行商户的业务程序
+
+                        //注意：
+                        //该种交易状态只在一种情况下出现——开通了高级即时到账，买家付款成功后。
+                        log4net.LogManager.GetLogger("AliNotify_Video").Info("Alipay notify_url out_trade_no:" + out_trade_no);
+                        PaySuccess_Video(out_trade_no, trade_no);
+                    }
+                }
+
+                return Content("success");
+            }
+            else
+            {
+                return Content("failure");
+
+            }
+        }
+
+        private BaseModel<IList<string>> PaySuccess_Video(string out_trade_no, string trade_no)
+        {
+            IList<TextAndValue> tv = new List<TextAndValue>();
+            tv.Add(new TextAndValue("@out_trade_no", out_trade_no));
+            tv.Add(new TextAndValue("@trade_no", trade_no));
+
+            BaseModel<IList<string>> bm = KinProxyData.Execute(tv, dbname + ".dbo.app_PaySuccess_Video");
+            return bm;
+        }
+
+        /// <summary>
+        /// 订单查询
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult AliQuery_Video()
+        {
+            return AliQuery();
+        }
         #endregion
 
         #region 微信
@@ -3827,7 +4025,186 @@ namespace YYXB.Controllers
         }
 
 
+        public JsonResult WxPay_Video()
+        {
+            string title = "视频监控";
+            string content = "视频监控";
+            string v_orderid = GetValue("v_orderid", "");
+            VideoOrderInfo or = GetOrderInfo_Video(v_orderid);
+            if (or != null)
+            {
+                string out_trade_no = or.v_orderno;
+                string timeStamp = "";
+                string nonceStr = "";
+                //当前时间 yyyyMMdd
+                string date = DateTime.Now.ToString("yyyyMMdd");
+                if ("" == out_trade_no)
+                {
+                    //生成订单10位序列号，此处用时间和随机数生成，商户根据自己调整，保证唯一
+                    out_trade_no = DateTime.Now.ToString("HHmmss") + TenPayV3Util.BuildRandomStr(28);
+                }
+
+                //创建支付应答对象
+                RequestHandler packageReqHandler = new RequestHandler(null);
+                //初始化
+                packageReqHandler.Init();
+
+                timeStamp = TenPayV3Util.GetTimestamp();
+                nonceStr = TenPayV3Util.GetNoncestr();
+
+                //设置package订单参数
+                packageReqHandler.SetParameter("appid", TenPayV3Info.AppId);		           //公众账号ID
+                packageReqHandler.SetParameter("mch_id", TenPayV3Info.MchId);		           //商户号
+                packageReqHandler.SetParameter("nonce_str", nonceStr);                         //随机字符串
+                packageReqHandler.SetParameter("attach", title);                               //附加数据
+                packageReqHandler.SetParameter("body", content);                               //商品信息
+                packageReqHandler.SetParameter("out_trade_no", out_trade_no);		               //商家订单号
+                packageReqHandler.SetParameter("total_fee", int.Parse((or.cost * 100).ToString()).ToString());		   //商品金额,以分为单位(money * 100).ToString()
+                packageReqHandler.SetParameter("spbill_create_ip", Request.UserHostAddress);   //用户的公网ip，不是商户服务器IP
+                packageReqHandler.SetParameter("notify_url", TenPayV3Info.TenPayV3Notify + "_Video");	   //接收财付通通知的URL
+                packageReqHandler.SetParameter("trade_type", TenPayV3Type.APP.ToString());	   //交易类型
+
+                string sign = packageReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+                packageReqHandler.SetParameter("sign", sign);	                    //签名
+
+                string data = packageReqHandler.ParseXML();
+
+                var result = TenPayV3.Unifiedorder(data);
+                var res = XDocument.Parse(result);
+
+                var xml = res.Element("xml");
+                string return_code = res.Element("xml").Element("return_code").Value;
+                string info = res.Element("xml").Element("return_msg").Value;
+                string result_code = res.Element("xml").Element("result_code") == null ? "" : res.Element("xml").Element("result_code").Value;
+                if (return_code.ToUpper() == "SUCCESS" && result_code.ToUpper() == "SUCCESS")
+                {
+                    //修改支付方式
+                    IList<TextAndValue> tv = new List<TextAndValue>();
+                    tv.Add(new TextAndValue("@v_orderid", v_orderid));
+                    tv.Add(new TextAndValue("@paytype", "1"));  //1：微信，2： 支付宝
+                    KinProxyData.Execute(tv, dbname + ".dbo.app_updatepaytype_Video");
+
+                    string prepayId = res.Element("xml").Element("prepay_id").Value;
+                    //设置支付参数
+                    RequestHandler paySignReqHandler = new RequestHandler(null);
+                    paySignReqHandler.SetParameter("appid", TenPayV3Info.AppId);		           //公众账号ID
+                    paySignReqHandler.SetParameter("partnerid", TenPayV3Info.MchId);
+                    paySignReqHandler.SetParameter("prepayid", prepayId);
+                    paySignReqHandler.SetParameter("noncestr", nonceStr);
+                    paySignReqHandler.SetParameter("timestamp", timeStamp);
+                    paySignReqHandler.SetParameter("package", "Sign=WXPay");
+                    string paySign = paySignReqHandler.CreateMd5Sign("key", TenPayV3Info.Key);
+
+                    return this.Json(new
+                    {
+                        code = 0,
+                        info = info,
+                        result = new
+                        {
+                            appid = TenPayV3Info.AppId,
+                            partnerid = TenPayV3Info.MchId,
+                            prepayid = prepayId,
+                            noncestr = nonceStr,
+                            timestamp = timeStamp,
+                            packageValue = "Sign=WXPay",
+                            trade_type = TenPayV3Type.APP.ToString(),
+                            sign = paySign,
+                            key = TenPayV3Info.Key
+                        }
+                    }, JsonRequestBehavior.AllowGet);
+                }
+                else
+                {
+                    return this.Json(new
+                    {
+                        code = -1,
+                        info = info,
+                        result = new { }
+                    }, JsonRequestBehavior.AllowGet);
+                }
+            }
+            else
+            {
+                return this.Json(new
+                {
+                    code = -1,
+                    info = "获取订单信息失败",
+                    result = new { }
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public ActionResult WxNotify_Video()
+        {
+            ResponseHandler resHandler = new ResponseHandler(null);
+
+            string return_code = resHandler.GetParameter("return_code");
+            string return_msg = resHandler.GetParameter("return_msg");
+
+            string res = null;
+
+            resHandler.SetKey(TenPayV3Info.Key);
+            //验证请求是否从微信发过来（安全）
+            if (resHandler.IsTenpaySign())
+            {
+                string result_code = resHandler.GetParameter("return_msg");
+                if (return_code.ToString() == "SUCCESS " && result_code == "SUCCESS ")
+                {
+                    res = "success";
+
+                    //正确的订单处理
+                    string out_trade_no = resHandler.GetParameter("out_trade_no");
+                    string trade_no = resHandler.GetParameter("transaction_id");
+                    log4net.LogManager.GetLogger("WxNotify_Video").Info("out_trade_no:" + out_trade_no);
+                    PaySuccess_Video(out_trade_no, trade_no);
+                }
+
+            }
+            else
+            {
+                res = "wrong";
+
+                //错误的订单处理
+            }
+
+            return Content(res);
+        }
+
+        /// <summary>
+        /// 订单查询
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult WxQuery_Video()
+        {
+            return WxQuery();
+        }
         #endregion
 
+        /// <summary>
+        /// 获取摄像头使用费用列表（用户端/护工端）
+        /// </summary>
+        /// <returns></returns>
+        public JsonResult GetVideoPrices()
+        {
+            IList<TextAndValue> tv = new List<TextAndValue>();
+            DataSet ds = KinProxyData.GetDataSet(tv, dbname + ".dbo.app_GetVideoPrices");
+            if (ds == null || ds.Tables.Count <= 0)
+            {
+                return this.Json(new BaseModel<object>(1, "获取失败", new object()), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var videoPrices = ds.Tables[0].AsEnumerable().Select(x => new
+                {
+                    //time_len,cost,state,update_time,create_time
+                    time_len = x.Field<int>("time_len"),
+                    cost = ParseValueFloat(x["cost"].ToString()),
+                    state = x.Field<int>("state")
+                });
+
+                return this.Json(new BaseModel<object>(0, "", videoPrices), JsonRequestBehavior.AllowGet);
+
+            }
+        }
     }
 }
